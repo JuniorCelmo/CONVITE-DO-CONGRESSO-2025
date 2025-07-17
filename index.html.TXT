@@ -108,6 +108,10 @@
         }
 
         /* Estilos para telas menores */
+        /* Para fazer o site aparecer no celular como se fosse para computador,
+           comentamos todo o bloco de media query abaixo. Isso desativa os
+           estilos responsivos que mudam o layout para telas pequenas. */
+        /*
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -117,16 +121,16 @@
             }
             .container {
                 padding: 20px;
-                width: 100%; /* Ocupa a largura total em telas pequenas */
-                border-radius: 0; /* Remove borda arredondada em telas pequenas */
-                box-shadow: none; /* Remove sombra em telas pequenas */
+                width: 100%;
+                border-radius: 0;
+                box-shadow: none;
             }
             table, thead, tbody, th, td, tr {
-                display: block; /* Transforma a tabela em blocos para responsividade */
+                display: block;
             }
             thead tr {
                 position: absolute;
-                top: -9999px; /* Esconde o cabeçalho original */
+                top: -9999px;
                 left: -9999px;
             }
             tr {
@@ -139,7 +143,7 @@
                 border: none;
                 border-bottom: 1px solid #eee;
                 position: relative;
-                padding-left: 50%; /* Espaço para o "cabeçalho" da célula */
+                padding-left: 50%;
                 text-align: right;
             }
             td:before {
@@ -153,7 +157,6 @@
                 font-weight: bold;
                 color: #666;
             }
-            /* Adiciona os "cabeçalhos" para cada célula em telas pequenas */
             td:nth-of-type(1):before { content: "Dia:"; }
             td:nth-of-type(2):before { content: "Data:"; }
             td:nth-of-type(3):before { content: "Local da Atividade:"; }
@@ -161,10 +164,11 @@
             td:nth-of-type(5):before { content: "Consideração Local/Casa:"; }
             td:nth-of-type(6):before { content: "Dirigente:"; }
             .button-group button {
-                width: 100%; /* Botões ocupam largura total em telas pequenas */
+                width: 100%;
                 margin: 5px 0;
             }
         }
+        */
 
         /* Estilos específicos para impressão */
         @media print {
@@ -230,8 +234,6 @@
     </style>
     <!-- Link para a fonte Inter do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- A biblioteca html2pdf.js não é mais necessária, mas o link pode ser removido para otimização -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
 </head>
 <body>
     <div class="container" id="content-to-print">
