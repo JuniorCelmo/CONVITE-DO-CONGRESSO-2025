@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação Especial - Congresso 2025</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Usando a fonte Inter */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5; /* Cor de fundo suave */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px; /* Cantos mais arredondados */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+            text-align: center;
+            width: 95%; /* Largura responsiva */
+            max-width: 1000px; /* Largura máxima para desktops */
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #2c3e50; /* Cor de título mais escura */
+            margin-bottom: 25px;
+            font-size: 2.2em; /* Tamanho maior para o título */
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate; /* Permite border-radius nas células */
+            border-spacing: 0;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px; /* Arredonda a tabela inteira */
+            overflow: hidden; /* Garante que os cantos arredondados sejam visíveis */
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ebf0f5; /* Linhas divisórias mais claras */
+        }
+        th {
+            background-color: #4a90e2; /* Cor de cabeçalho azul */
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        tr:nth-child(even) {
+            background-color: #f8faff; /* Fundo zebrado para melhor leitura */
+        }
+        tr:hover {
+            background-color: #e6f2ff; /* Efeito hover nas linhas */
+        }
+        td {
+            color: #444;
+        }
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas menores */
+            justify-content: center;
+            gap: 20px; /* Espaço entre os botões */
+        }
+        .button-group button {
+            background-color: #28a745; /* Cor verde para os botões */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px; /* Cantos arredondados nos botões */
+            cursor: pointer;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave e efeito de clique */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra nos botões */
+        }
+        .button-group button:hover {
+            background-color: #218838; /* Cor mais escura no hover */
+            transform: translateY(-2px); /* Efeito de "levantar" no hover */
+        }
+        .button-group button:active {
+            transform: translateY(0); /* Volta à posição original no clique */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        /* A mensagem de carregamento não é mais necessária, mas mantida oculta */
+        #loadingMessage {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #007bff;
+        }
+
+        /* Estilos para telas menores */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+            .container {
+                padding: 20px;
+                width: 100%; /* Ocupa a largura total em telas pequenas */
+                border-radius: 0; /* Remove borda arredondada em telas pequenas */
+                box-shadow: none; /* Remove sombra em telas pequenas */
+            }
+            table, thead, tbody, th, td, tr {
+                display: block; /* Transforma a tabela em blocos para responsividade */
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px; /* Esconde o cabeçalho original */
+                left: -9999px;
+            }
+            tr {
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%; /* Espaço para o "cabeçalho" da célula */
+                text-align: right;
+            }
+            td:before {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #666;
+            }
+            /* Adiciona os "cabeçalhos" para cada célula em telas pequenas */
+            td:nth-of-type(1):before { content: "Dia:"; }
+            td:nth-of-type(2):before { content: "Data:"; }
+            td:nth-of-type(3):before { content: "Local da Atividade:"; }
+            td:nth-of-type(4):before { content: "Hora:"; }
+            td:nth-of-type(5):before { content: "Consideração Local/Casa:"; }
+            td:nth-of-type(6):before { content: "Dirigente:"; }
+            .button-group button {
+                width: 100%; /* Botões ocupam largura total em telas pequenas */
+                margin: 5px 0;
+            }
+        }
+
+        /* Estilos específicos para impressão */
+        @media print {
+            body {
+                background-color: #fff; /* Fundo branco para impressão */
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact; /* Garante que as cores de fundo sejam impressas */
+                print-color-adjust: exact;
+            }
+            .container {
+                box-shadow: none; /* Remove sombra para impressão */
+                border-radius: 0; /* Remove borda arredondada para impressão */
+                width: auto; /* Largura automática para impressão */
+                max-width: none; /* Sem restrição de largura máxima para impressão */
+                padding: 0; /* Sem padding para o container na impressão */
+            }
+            .button-group, #loadingMessage {
+                display: none; /* Oculta os botões e a mensagem de carregamento ao imprimir */
+            }
+            /* Garante que os estilos da tabela sejam preservados para impressão */
+            table {
+                box-shadow: none;
+                border-radius: 0;
+                border: 1px solid #ddd; /* Adiciona uma borda ao redor da tabela para impressão */
+            }
+            th, td {
+                border: 1px solid #eee; /* Bordas mais claras para impressão */
+                background-color: #fff; /* Garante fundo branco para células */
+                color: #000; /* Texto preto para melhor contraste na impressão */
+            }
+            th {
+                background-color: #4a90e2; /* Cor de cabeçalho azul */
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2; /* Listras zebradas mais claras para impressão */
+            }
+            tr:hover {
+                background-color: #f2f2f2; /* Remove efeito hover na impressão */
+            }
+            /* Evita que as linhas da tabela se quebrem entre as páginas */
+            tr {
+                page-break-inside: avoid;
+            }
+            /* Força a tabela a ser exibida como tabela para impressão, ignorando estilos responsivos */
+            table, thead, tbody, th, td, tr {
+                display: table;
+            }
+            thead tr {
+                position: static;
+                top: auto;
+                left: auto;
+            }
+            td {
+                padding-left: 12px; /* Redefine o padding */
+                text-align: left; /* Redefine o alinhamento do texto */
+            }
+            td:before {
+                content: none; /* Remove pseudo-elementos para impressão */
+            }
+        }
+    </style>
+    <!-- Link para a fonte Inter do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- A biblioteca html2pdf.js não é mais necessária, mas o link pode ser removido para otimização -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
+</head>
+<body>
+    <div class="container" id="content-to-print">
+        <h1>PROGRAMAÇÃO ESPECIAL PARA A DISTRIBUIÇÃO DO CONVITE DO CONGRESSO 2025</h1>
+        <p>Adoração pura!</p>
+        <p>A programação para distribuição do convite do congresso será alterada de acordo com a necessidade para cobrir o território.</p>
+        <p>Segue a Tabela com as datas que cobrem os dias de pregação com os convites. O último domingo do mês de Julho DIA $27/07$ já tem a programação fixa, e o primeiro domingo do mês de agosto, dia $03/08$ também.</p>
+        <p>Os demais Dias serão alterados de acordo com a necessidade para cobrir todo o nosso território ou o máximo possível dele com os convites. Que Jeová Abençoe a todos e se dê à disposição para se adaptar ao que for necessário a fim de apoiar esta maravilhosa obra de pregação.</p>
+
+        <h2>PREGAÇÃO DE CASA EM CASA - JULHO e AGOSTO DE 2025</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Data</th>
+                    <th>Local da Atividade</th>
+                    <th>Hora</th>
+                    <th>Consideração Local/Casa</th>
+                    <th>Dirigente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Julho -->
+                <tr>
+                    <td>SEXTA</td>
+                    <td>25</td>
+                    <td>VILAVERDE LADO B - QUADRA DE ORLANDO E DE VELOSO E AS TORRES</td>
+                    <td>8:45</td>
+                    <td>CASA DE OLANDO</td>
+                    <td>JORGE</td>
+                </tr>
+                <tr>
+                    <td>SÁBADO</td>
+                    <td>26</td>
+                    <td>PONTA VERDE / ARCA DE NOÉ</td>
+                    <td>8:45</td>
+                    <td>CASA DE ANDRÉ</td>
+                    <td>ADAILTON/ ANTONIEL/ EDERILTON</td>
+                </tr>
+                <tr>
+                    <td>DOMINGO</td>
+                    <td>27</td>
+                    <td>CANOAS</td>
+                    <td>8:45</td>
+                    <td>CASA DE ALEX</td>
+                    <td>JUNIOR</td>
+                </tr>
+                <tr>
+                    <td>SEGUNDA</td>
+                    <td>28</td>
+                    <td>VILA VERDE LADO B - QUADRAS DO MEIO, RUA PRINCIPAL E RUA DO BRASILGÁS</td>
+                    <td>8:45</td>
+                    <td>CASA DE ORLANDO</td>
+                    <td>ORLANDO/ICARO MATEUS</td>
+                </tr>
+                <tr>
+                    <td>TERÇA</td>
+                    <td>29</td>
+                    <td>CANADÁ</td>
+                    <td>8:45</td>
+                    <td>CASA DE ORLANDO</td>
+                    <td>GABRIEL</td>
+                </tr>
+                <tr>
+                    <td>QUARTA</td>
+                    <td>30</td>
+                    <td>ACÁCIA</td>
+                    <td>8:45</td>
+                    <td>CASA DE ORLANDO</td>
+                    <td>AZIEL</td>
+                </tr>
+                <tr>
+                    <td>QUINTA</td>
+                    <td>31</td>
+                    <td>VILA VERDE (A)</td>
+                    <td>8:45</td>
+                    <td>CASA DE ORLANDO</td>
+                    <td>ALEX</td>
+                </tr>
+                <!-- Agosto -->
+                <tr>
+                    <td>SEXTA</td>
+                    <td>1</td>
+                    <td>VILA VERDE LADO (A)</td>
+                    <td>8:45</td>
+                    <td>CASA DE ALEX</td>
+                    <td>JORGE</td>
+                </tr>
+                <tr>
+                    <td>SÁBADO</td>
+                    <td>2</td>
+                    <td>ÁGUAS COMPRIDAS</td>
+                    <td>8:45</td>
+                    <td>CASA DE ORLANDO</td>
+                    <td>ADAILTON/ ANTONIEL/ EDERILTON</td>
+                </tr>
+                <tr>
+                    <td>DOMINGO</td>
+                    <td>3</td>
+                    <td>RURAL</td>
+                    <td>8:15</td>
+                    <td>CASA DE ORLANDO</td>
+                    <td>MARIVALDO</td>
+                </tr>
+                <tr>
+                    <td>SEGUNDA</td>
+                    <td>4</td>
+                    <td></td>
+                    <td>15:45</td>
+                    <td></td>
+                    <td>ORLANDO/ÍCARO MATEUS</td>
+                </tr>
+                <tr>
+                    <td>TERÇA</td>
+                    <td>5</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>IGOR</td>
+                </tr>
+                <tr>
+                    <td>QUARTA</td>
+                    <td>6</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>AZIEL</td>
+                </tr>
+                <tr>
+                    <td>QUINTA</td>
+                    <td>7</td>
+                    <td></td>
+                    <td>8:30</td>
+                    <td></td>
+                    <td>ALEX</td>
+                </tr>
+                <tr>
+                    <td>SEXTA</td>
+                    <td>8</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>JORGE</td>
+                </tr>
+                <tr>
+                    <td>SÁBADO</td>
+                    <td>9</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>PEDRO LUCAS / ADAILTON / ANTONIEL/ EDERILTON</td>
+                </tr>
+                <tr>
+                    <td>DOMINGO</td>
+                    <td>10</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>JUNIOR LUCAS ORLANDO ANDRÉ</td>
+                </tr>
+                <tr>
+                    <td>SEGUNDA</td>
+                    <td>11</td>
+                    <td></td>
+                    <td>15:45</td>
+                    <td></td>
+                    <td>ORLANDO/ÍCARO MATEUS</td>
+                </tr>
+                <tr>
+                    <td>TERÇA</td>
+                    <td>12</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>GABRIEL</td>
+                </tr>
+                <tr>
+                    <td>QUARTA</td>
+                    <td>13</td>
+                    <td></td>
+                    <td>8:45</td>
+                    <td></td>
+                    <td>AZIEL</td>
+                </tr>
+                <tr>
+                    <td>QUINTA</td>
+                    <td>14</td>
+                    <td></td>
+                    <td>8:30</td>
+                    <td></td>
+                    <td>ALEX</td>
+                </tr>
+                <tr>
+                    <td>SEXTA</td>
+                    <td>15</td>
+                    <td colspan="4">1º DIA DO CONGRESSO</td> <!-- Mescla células para o dia do congresso -->
+                </tr>
+                <tr>
+                    <td>SÁBADO</td>
+                    <td>16</td>
+                    <td colspan="4">2º DIA DO CONGRESSO</td>
+                </tr>
+                <tr>
+                    <td>DOMINGO</td>
+                    <td>17</td>
+                    <td colspan="4">3º DIA DO CONGRESSO</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- A mensagem de carregamento não é mais necessária, mas mantida oculta -->
+        <div id="loadingMessage"></div>
+    </div>
+
+   
+</body>
+</html>
